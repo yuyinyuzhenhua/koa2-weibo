@@ -16,4 +16,20 @@ router.get('/json', async (ctx, next) => {
   }
 })
 
+router.get('/profile/:username', async (ctx, next) => {
+  ctx.body = {
+    "title": "this is profile page",
+    "username": ctx.params.username
+  }
+})
+
+router.get('/loadmore/:username/:pageIndex', async (ctx, next) => {
+  let { username, pageIndex } = ctx.params
+  ctx.body = {
+    "title": "this is loadmore",
+    username,
+    pageIndex
+  }
+})
+
 module.exports = router
