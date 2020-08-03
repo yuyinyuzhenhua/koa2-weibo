@@ -15,7 +15,6 @@ async function getUserInfo(userName, password){
     if(password){
         Object.assign(whereOpt, {password})
     }
-    console.log(whereOpt);
     const result = await User.findOne({
         attributes: ['id', 'userName', 'nickName', 'picture', 'city'],
         where: whereOpt
@@ -29,6 +28,23 @@ async function getUserInfo(userName, password){
     return formatRes
 }
 
+
+/**
+ * 
+ */
+
+ async function createUser({ userName, password, gender=3, nickName }){
+     const result = await User.create({
+        userName,
+        password,
+        nickName: nickName ? nickName : userName,
+        gender
+     })
+     const data = result.dataValues
+     return data
+ }
+
 module.exports={
     getUserInfo,
+    createUser
 }
