@@ -9,7 +9,7 @@ const {
     registerFailInfo,
     registerUserNameNotExistInfo
 } = require('../model/ErrorInfo')
-const router = require('../routes/api/user')
+const doCrypto = require('../utils/cryp')
 
 
 
@@ -17,7 +17,7 @@ const router = require('../routes/api/user')
  * 登录
  */
 async function login(ctx, userName, password) {
-    const userInfo = await getUserInfo(userName, password)
+    const userInfo = await getUserInfo(userName, doCrypto(password))
     if (!userInfo) {
         // 登录失败
         return new ErrorModel(loginFailInfo)
@@ -42,7 +42,7 @@ async function register({ userName, password, gender }){
     try{
         await createUser({
             userName,
-            password: password,
+            password: doCrypto(password),
             gender
         })
         return new SuccessModel()
