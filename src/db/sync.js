@@ -2,7 +2,8 @@
  * sequelize 同步数据库
  */
 
-const seq = require('sequelize')
+const seq = require('./seq')
+require('./model/index')
 
 seq.authenticate().then(() => {
     console.log('auth ok');
