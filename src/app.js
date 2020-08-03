@@ -14,6 +14,7 @@ const { isProd } = require('./utils/env')
 // const users = require('./routes/users')
 const errorViewRouter = require('./routes/view/error')
 const userViewRouter = require('./routes/view/user')
+const blogViewRouter = require('./routes/view/blog')
 const userApiRouter = require('./routes/api/user')
 
 // error handler
@@ -64,6 +65,7 @@ app.use(session({
 // app.use(users.routes(), users.allowedMethods())
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(userApiRouter.routes(), userApiRouter.allowedMethods())
+app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods())
 
 
 
