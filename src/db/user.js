@@ -1,7 +1,7 @@
 const {
     getUserInfo,
     createUser,
-    deleteUser
+    deleteUser,
 } = require('../services/user')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const {
@@ -65,6 +65,7 @@ async function isExist(userName){
     }
 }
 
+
 async function deleteCurUser(userName){
     const result = await deleteUser(userName)
     if(result){
@@ -72,7 +73,6 @@ async function deleteCurUser(userName){
     }
     return new ErrorModel(deleteUserFailInfo)
 }
-
 
 module.exports = {
     login,

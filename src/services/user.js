@@ -44,7 +44,21 @@ async function getUserInfo(userName, password){
      return data
  }
 
+ /**
+  * 删除用户
+  */
+
+async function deleteUser(userName) {
+    const result = await User.destroy({
+        where: {
+            userName
+        }
+    })
+    return result > 0
+}
+
 module.exports={
     getUserInfo,
-    createUser
+    createUser,
+    deleteUser    
 }
