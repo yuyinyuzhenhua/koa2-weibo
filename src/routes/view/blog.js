@@ -3,8 +3,11 @@
  */
 
 const router = require('koa-router')()
+const { loginRedirect } = require('../../middlewares/loginChecks')
 
-router.get('/', async(ctx, next) => {
+
+
+router.get('/', loginRedirect, async(ctx, next) => {
     const userInfo = ctx.session.userInfo
     let fansCount = 1, fansList = [], followersCount=5, followersList=[], atCount= 0;
 
