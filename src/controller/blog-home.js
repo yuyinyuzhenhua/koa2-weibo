@@ -2,6 +2,7 @@
  * @description 首页 controller
  */
 
+const xss = require('xss')
 const { createBlog, getFollowersBlogList } = require('../services/blog')
 const { SuccessModel, ErrorModel } = require('../model/ResModel')
 const { createBlogFailInfo } = require('../model/ErrorInfo')
@@ -16,7 +17,7 @@ async function create({ userId, content, image }){
     // 创建微博
     const blog = await createBlog({
         userId,
-        content: content,
+        content: xss(content),
         image
     })
     if(blog){
@@ -26,6 +27,32 @@ async function create({ userId, content, image }){
     return new ErrorModel(createBlogFailInfo)
 }
 
+/**
+ * 获取首页微博列表
+ * @param {number} userId userId
+ * @param {number} pageIndex page index
+ */
+async function getHomeBlogList(userId, pageIndex = 0) {
+    const result = await getFollowersBlogList(
+        {
+            userId,
+            pageIndex,
+            pageSize: PAGE_SIZE
+        }
+    )
+    const { count, blogList } = result
+    
+    // 返回
+    return new SuccessModel({
+        isEmpty: blogList.length === 0,
+        blogList,
+        pageSize: PAGE_SIZE,
+        pageIndex,
+        count
+    })
+}
+
 module.exports= {
-    create
+    create,
+    getHomeBlogList
 }
