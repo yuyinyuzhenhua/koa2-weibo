@@ -5,6 +5,7 @@
 const fs = require('fs')
 const path = require('path')
 const ejs = require('ejs')
+const { loginRedirect } = require('../middlewares/loginChecks')
 
 // 获取 blog-list.ejs 的文件内容
 const BLOG_LIST_TPL = fs.readFileSync(
@@ -23,6 +24,9 @@ function getBlogListStr(blogList = [], canReply = false) {
         canReply
     })
 }
+
+
+
 
 module.exports = {
     getBlogListStr
